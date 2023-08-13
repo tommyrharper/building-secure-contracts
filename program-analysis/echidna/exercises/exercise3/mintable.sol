@@ -4,16 +4,16 @@ pragma solidity ^0.8.0;
 import "./token.sol";
 
 contract MintableToken is Token {
-    int256 public totalMinted;
-    int256 public totalMintable;
+    uint public totalMinted;
+    uint public totalMintable;
 
-    constructor(int256 totalMintable_) {
+    constructor(uint totalMintable_) {
         totalMintable = totalMintable_;
     }
 
-    function mint(uint256 value) public onlyOwner {
-        require(int256(value) + totalMinted < totalMintable);
-        totalMinted += int256(value);
+    function mint(uint value) public onlyOwner {
+        require(value + totalMinted < totalMintable);
+        totalMinted += value;
 
         balances[msg.sender] += value;
     }
