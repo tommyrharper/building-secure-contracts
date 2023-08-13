@@ -36,9 +36,12 @@ contract Token is Ownable, Pausable {
 
     function transfer(address to, uint256 value) public whenNotPaused {
         // unchecked to save gas
+        uint256 balanceBefore = balances[msg.sender];
         unchecked {
             balances[msg.sender] -= value;
             balances[to] += value;
         }
+        uint256 balanceAfter = balances[msg.sender];
+        require(balanceAfter < balanceBefore, "Token: Overflow.");
     }
 }
